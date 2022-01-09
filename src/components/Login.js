@@ -1,13 +1,48 @@
 import { Button, Card, Container, TextField, Typography } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import React, { Fragment, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Login() {
 
     const refUsername = useRef();
     const refPassword = useRef();
+    const { currentUser, login, logout } = useAuth()
+    let navigate = useNavigate();
+
     const [ready, setReady] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        try {
+            setError('')
+            setLoading(true)
+            await login(refUsername.current.value, refPassword.current.value)
+            navigate("/", { replace: true });
+        }
+        catch {
+            setError('Failed to sign in')
+        }
+
+        setLoading(false)
+    }
+
+    async function handleLogout() {
+        // setError('')
+
+        try {
+            await logout()
+            navigate("/login", { replace: true });
+
+        } catch {
+            console.log("Failed to log out")
+        }
+    }
 
     const checkState = function () {
         setReady(refUsername.current.value.length > 0 &&
@@ -31,12 +66,13 @@ export default function Login() {
             width: "90%",
             marginBottom: "1em"
         },
-        loginbutton: {
+        button: {
             width: "90%",
             marginBottom: "1em",
-            backgroundColor:theme.palette.primary.light,
+            marginTop: "1em",
+            backgroundColor: theme.palette.primary.light,
             '&:hover': {
-                backgroundColor:theme.palette.primary.main
+                backgroundColor: theme.palette.primary.main
             }
         }
     }));
@@ -47,10 +83,18 @@ export default function Login() {
         <Fragment>
             <Container className={classes.root}>
                 <Card variant="outlined">
-                    <Typography className={classes.login} variant="h4">Please Log In</Typography>
-                    <TextField onChange={checkState} inputRef={refUsername} className={classes.textbox} id="username" label="Username" variant="outlined" />
-                    <TextField onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
-                    <Button disabled={!ready} className={classes.loginbutton} variant="contained">Log In</Button>
+                    {!currentUser && <>
+                        <Typography className={classes.login} variant="h4">Please Log In</Typography>
+                        <TextField onChange={checkState} inputRef={refUsername} className={classes.textbox} id="username" label="Username" variant="outlined" />
+                        <TextField onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
+                        {error && <Alert severity="error">{error}</Alert>}
+                        <Button onClick={handleSubmit} disabled={!ready || loading} className={classes.button} variant="contained">Log In</Button>
+                    </>}
+                    {currentUser &&
+                        <>
+                            <Typography className={classes.login}>You are already logged in</Typography>
+                            <Button onClick={handleLogout} className={classes.button} variant="contained">Log Out</Button>
+                        </>}
                 </Card>
             </Container>
         </Fragment>

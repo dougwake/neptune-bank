@@ -4,10 +4,11 @@ import Home from './Home'
 import BillPay from './BillPay'
 import Login from './Login'
 import PageNotFound from './PageNotFound'
+import { AuthProvider } from '../contexts/AuthContext'
 
 export default function App() {
   return (
-    <>
+    <AuthProvider>
       <h1>Neptune Bank</h1>
       <BrowserRouter>
         <Routes>
@@ -17,7 +18,7 @@ export default function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
 
   )
 }
