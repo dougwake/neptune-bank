@@ -5,6 +5,7 @@ import BillPay from './BillPay'
 import Login from './Login'
 import PageNotFound from './PageNotFound'
 import { AuthProvider } from '../contexts/AuthContext'
+import RequireAuth from './RequireAuth'
 
 export default function App() {
   return (
@@ -12,9 +13,17 @@ export default function App() {
       <h1>Neptune Bank</h1>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-          <Route path="/billpay" element={<BillPay />}></Route>
-          <Route path="/login" element={<Login />}></Route>
+        <Route exact path="/" element={
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
+          } />
+          <Route path="/billpay" element={
+            <RequireAuth>
+              <BillPay />
+            </RequireAuth>
+          } />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

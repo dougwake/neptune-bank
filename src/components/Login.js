@@ -23,6 +23,7 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(refUsername.current.value, refPassword.current.value)
+            setLoading(false)
             navigate("/", { replace: true });
         }
         catch {
