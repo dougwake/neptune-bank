@@ -50,7 +50,7 @@ export default function Login() {
         }
     }
 
-    const onPasswordKeyUp = function(e) {
+    const onPasswordKeyUp = function (e) {
         if (e.keyCode === 13 && refUsername.current.value.length > 0 &&
             refPassword.current.value.length > 0) doLogin()
     }
