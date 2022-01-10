@@ -11,16 +11,16 @@ export default function Home() {
 
     const useStyles = makeStyles((theme) => ({
         root: {
-          maxWidth: 800,
+            maxWidth: 800,
         },
         AccountSummary: {
-          marginTop: "0.5em",
-          marginBottom: "0.75em"
+            marginTop: "0.5em",
+            marginBottom: "0.75em"
         }
-      }));
-    
-      const classes = useStyles();
-    
+    }));
+
+    const classes = useStyles();
+
     const loadAccounts = () => {
         getAccounts()
             .then(val => setAccounts(val))

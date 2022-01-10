@@ -9,8 +9,12 @@ import RequireAuth from './RequireAuth'
 import BankAPI from '../contexts/BankAPI'
 import Header from './Header'
 import { Container } from '@material-ui/core'
+import TransactionPage from './TransactionPage'
 
 export default function App() {
+
+  const currentURL = window.location.href;
+  console.log(currentURL)
 
   return (
     <AuthProvider>
@@ -22,6 +26,11 @@ export default function App() {
               <Route exact path="/" element={
                 <RequireAuth>
                   <Home />
+                </RequireAuth>
+              } />
+              <Route path="/transactions/:id" element={
+                <RequireAuth>
+                  <TransactionPage />
                 </RequireAuth>
               } />
               <Route path="/billpay" element={

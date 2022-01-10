@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Button, Card, CardActions, CardContent, TableCell, Tooltip, Typography } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Card, CardActions, CardContent, Link, TableCell, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
@@ -48,6 +49,14 @@ export default function Account({ account }) {
         }
     }
 
+    let navigate = useNavigate();
+
+    function moveToTransactions(e, id) {
+        e.preventDefault();
+        navigate(`/transactions/${id}`, { replace: true });
+      }
+    
+
     return (
         <TableCell className={classes.tableCell}>
             <Card className={classes.root}>
@@ -68,6 +77,9 @@ export default function Account({ account }) {
                     </Typography>
                 </CardContent>
                 <CardActions>
+                    <Button onClick={(e) => moveToTransactions(e, account.id)} variant="contained" color="primary" size="small">
+                        View Transactions
+                    </Button>
                     <Button variant="contained" color="primary" size="small">
                         Account Details
                     </Button>
