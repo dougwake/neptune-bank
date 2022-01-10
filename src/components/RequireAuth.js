@@ -4,9 +4,9 @@ import { useAuth } from '../contexts/AuthContext'
 
 export default function RequireAuth({children}) {
 
-    const { currentUser } = useAuth()
+    const { authUser } = useAuth()
 
-    return currentUser ? children : <Navigate to="/login" />;
+    return authUser ? children : <Navigate to="/login" />;
 }
 
 

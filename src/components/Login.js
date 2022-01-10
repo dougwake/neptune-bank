@@ -9,7 +9,7 @@ export default function Login() {
 
     const refUsername = useRef();
     const refPassword = useRef();
-    const { currentUser, login, logout } = useAuth()
+    const { authUser, login, logout } = useAuth()
     let navigate = useNavigate();
 
     const [ready, setReady] = useState(false);
@@ -84,14 +84,14 @@ export default function Login() {
         <Fragment>
             <Container className={classes.root}>
                 <Card variant="outlined">
-                    {!currentUser && <>
+                    {!authUser && <>
                         <Typography className={classes.login} variant="h4">Please Log In</Typography>
                         <TextField onChange={checkState} inputRef={refUsername} className={classes.textbox} id="username" label="Username" variant="outlined" />
                         <TextField onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
                         {error && <Alert severity="error">{error}</Alert>}
                         <Button onClick={handleSubmit} disabled={!ready || loading} className={classes.button} variant="contained">Log In</Button>
                     </>}
-                    {currentUser &&
+                    {authUser &&
                         <>
                             <Typography className={classes.login}>You are already logged in</Typography>
                             <Button onClick={handleLogout} className={classes.button} variant="contained">Log Out</Button>

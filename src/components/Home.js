@@ -1,14 +1,30 @@
+import React, { useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
-import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'
+import { useBankAPI } from '../contexts/BankAPI';
 
 export default function Home() {
 
-    const { currentUser, logout } = useAuth()
+    const { authUser, logout } = useAuth()
+    const [accounts, setAccounts] = useState([])
+
+    const { currentUser, getAccounts } = useBankAPI()
+
     let navigate = useNavigate()
 
-    console.log(currentUser ? currentUser.email : "no current user")
+    console.log(currentUser ? currentUser.uid : "no current user")
+    console.log("accounts: ")
+    console.log(accounts);
+
+    const loadAccounts = () => {
+        getAccounts()
+            .then(val => setAccounts(val))
+    }
+
+    useEffect(() => {
+        loadAccounts()
+    }, [])
 
     async function handleLogout() {
 
@@ -16,7 +32,7 @@ export default function Home() {
             await logout()
             navigate("/login", { replace: true });
 
-        } catch{
+        } catch {
             console.log("Failed to log out")
         }
     }
