@@ -7,28 +7,33 @@ import PageNotFound from './PageNotFound'
 import { AuthProvider } from '../contexts/AuthContext'
 import RequireAuth from './RequireAuth'
 import BankAPI from '../contexts/BankAPI'
+import Header from './Header'
+import { Container } from '@material-ui/core'
 
 export default function App() {
 
   return (
     <AuthProvider>
       <BankAPI>
-        <h1>Neptune Bank</h1>
         <BrowserRouter>
-          <Routes>
-            <Route exact path="/" element={
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
-            } />
-            <Route path="/billpay" element={
-              <RequireAuth>
-                <BillPay />
-              </RequireAuth>
-            } />
-            <Route path="/login" element={<Login />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
+          <Header bankName="Neptune Bank" />
+          <Container maxWidth="lg" style={{marginTop: "2em"}}>
+            <Routes>
+              <Route exact path="/" element={
+                <RequireAuth>
+                  <Home />
+                </RequireAuth>
+              } />
+              <Route path="/billpay" element={
+                <RequireAuth>
+                  <BillPay />
+                </RequireAuth>
+              } />
+              <Route path="/login" element={<Login />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Container>
+
         </BrowserRouter>
       </BankAPI>
     </AuthProvider>

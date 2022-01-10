@@ -16,8 +16,13 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
+
+        doLogin();
+    }
+
+    async function doLogin() {
 
         try {
             setError('')
@@ -43,6 +48,11 @@ export default function Login() {
         } catch {
             console.log("Failed to log out")
         }
+    }
+
+    const onPasswordKeyUp = function(e) {
+        if (e.keyCode === 13 && refUsername.current.value.length > 0 &&
+            refPassword.current.value.length > 0) doLogin()
     }
 
     const checkState = function () {
@@ -87,7 +97,7 @@ export default function Login() {
                     {!authUser && <>
                         <Typography className={classes.login} variant="h4">Please Log In</Typography>
                         <TextField onChange={checkState} inputRef={refUsername} className={classes.textbox} id="username" label="Username" variant="outlined" />
-                        <TextField onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
+                        <TextField onKeyUp={onPasswordKeyUp} onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
                         {error && <Alert severity="error">{error}</Alert>}
                         <Button onClick={handleSubmit} disabled={!ready || loading} className={classes.button} variant="contained">Log In</Button>
                     </>}

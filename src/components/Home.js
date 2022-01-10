@@ -6,13 +6,14 @@ import { useBankAPI } from '../contexts/BankAPI';
 
 export default function Home() {
 
-    const { authUser, logout } = useAuth()
+    const { logout } = useAuth()
     const [accounts, setAccounts] = useState([])
 
     const { currentUser, getAccounts } = useBankAPI()
 
     let navigate = useNavigate()
 
+    // Just to test out the DevBankAPI:
     console.log(currentUser ? currentUser.uid : "no current user")
     console.log("accounts: ")
     console.log(accounts);
