@@ -46,7 +46,7 @@ export default function AccountMiniList({ accounts, currentID }) {
                                 {account.name}
                             </Typography>
                             <Typography className={classes.acctid}>
-                                {"(..." + account.id + ")"}
+                                {"(" + account.accountNumber + ")"}
                             </Typography>
                             <Typography className={classes.balance}>
                                 {"$" + account.balance.toLocaleString("en-CA")}
