@@ -62,7 +62,7 @@ export default function Account({ account }) {
             <Card className={classes.root}>
                 <CardContent>
                     <Typography variant="h5" className={classes.balance}>
-                        ${account.balance.toLocaleString("en-CA")}
+                        ${account.balance.toLocaleString("en-CA", {minimumFractionDigits: 2})}
                     </Typography>
                     <Tooltip title="View Transactions" placement="bottom-start">
                         <Box className={classes.accountName}>

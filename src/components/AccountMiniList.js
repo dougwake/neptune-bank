@@ -49,9 +49,9 @@ export default function AccountMiniList({ accounts, currentID }) {
                                 {"(" + account.accountNumber + ")"}
                             </Typography>
                             <Typography className={classes.balance}>
-                                {"$" + account.balance.toLocaleString("en-CA")}
+                                {"$" + account.balance.toLocaleString("en-CA", {minimumFractionDigits: 2})}
                             </Typography>
-                            <Typography>Available</Typography>
+                            <Typography>{account.name === "Visa" ? "\u00A0" : "Available" }</Typography>
                         </Paper>
                     </Grid>
                 ))}
