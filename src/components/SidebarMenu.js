@@ -7,6 +7,7 @@ import NoteOutlinedIcon from '@material-ui/icons/NoteOutlined';
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import FaceIcon from '@material-ui/icons/Face';
 import { useAuth } from '../contexts/AuthContext';
+import {useBankAPI} from '../contexts/BankAPI'
 
 const useStyles = makeStyles((theme) => ({
     link: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
 function SidebarMenu() {
 
     const { logout } = useAuth();
+
+    const { currentUser } = useBankAPI();
+
 
     let navigate = useNavigate();
 
@@ -66,7 +70,7 @@ function SidebarMenu() {
                         <Link className={classes.link} to="/"><ExitToAppOutlinedIcon className={classes.icon} />Sign Out</Link>
                     </ListItem>
                     <ListItem button onClick={() => setOpenDrawer(false)}>
-                        <Link className={classes.link} to="/"><FaceIcon className={classes.icon} />Account</Link>
+                        <Link className={classes.link} to="/"><FaceIcon className={classes.icon} />{currentUser.name}</Link>
                     </ListItem>
                 </List>
             </Drawer>

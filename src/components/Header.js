@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   user: {
     backgroundColor: "white",
     '&:hover': {
-      backgroundColor: theme.palette.secondary.light,
+      backgroundColor: "#DDD",
       cursor: "pointer"
     }
   },
