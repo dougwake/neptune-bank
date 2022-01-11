@@ -60,7 +60,7 @@ export default function TransactionPage() {
         loadAccounts()
     }, [])
 
-    const currentAccount = accounts.find(a => a.id == id)
+    const currentAccount = accounts.find(a => a.id === id)
     const nickname = currentAccount ?
         `${currentAccount.name} (${currentAccount.accountNumber}) ` : ""
 

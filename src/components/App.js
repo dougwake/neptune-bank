@@ -14,7 +14,7 @@ import TransactionPage from './TransactionPage'
 export default function App() {
 
   const currentURL = window.location.href;
-  console.log(currentURL)
+  // console.log(currentURL)
 
   return (
     <AuthProvider>

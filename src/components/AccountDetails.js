@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AccountDetails({ account }) {
     const classes = useStyles();
 
-    console.log("AccountDetails: " + account.id)
+    // console.log("AccountDetails: " + account.id)
 
     return (
         <Grid className={classes.modalBox} item xs>

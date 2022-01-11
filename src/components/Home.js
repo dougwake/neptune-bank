@@ -7,7 +7,7 @@ export default function Home() {
 
     const [accounts, setAccounts] = useState([])
 
-    const { getAccounts } = useBankAPI()
+    const { currentUser, getAccounts } = useBankAPI()
 
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -22,7 +22,7 @@ export default function Home() {
     const classes = useStyles();
 
     const loadAccounts = () => {
-        getAccounts()
+        getAccounts(currentUser.userID)
             .then(val => setAccounts(val))
     }
 

@@ -57,9 +57,9 @@ export default function Paginator({ pageinfo, goToPage }) {
                     value={pageinfo.numPerPage}
                     onChange={changeNumPerPage}
                 >
-                    <MenuItem value={5}>5 per page</MenuItem>
-                    <MenuItem value={10}>10 per page</MenuItem>
-                    <MenuItem value={25}>25 per page</MenuItem>
+                    <MenuItem value={5}>5 / page</MenuItem>
+                    <MenuItem value={10}>10 / page</MenuItem>
+                    <MenuItem value={25}>25 / page</MenuItem>
                 </Select>
             </div>
         ) : (
