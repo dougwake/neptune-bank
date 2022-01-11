@@ -32,6 +32,11 @@ export default function Account({ account }) {
         balance: {
             float: "right"
         },
+        negbalance: {
+            float: "right",
+            color: "red",
+            fontWeight: "bold"
+        },
         icon: {
             marginRight: "0.25em"
         }
@@ -61,11 +66,11 @@ export default function Account({ account }) {
         <TableCell className={classes.tableCell}>
             <Card className={classes.root}>
                 <CardContent>
-                    <Typography variant="h5" className={classes.balance}>
-                        ${account.balance.toLocaleString("en-CA", {minimumFractionDigits: 2})}
+                    <Typography variant="h5" className={account.balance < 0 ? classes.negbalance : classes.balance}>
+                        { (account.balance < 0 ? "-$" : "$") + Math.abs(account.balance).toLocaleString("en-CA", {minimumFractionDigits: 2})}
                     </Typography>
                     <Tooltip title="View Transactions" placement="bottom-start">
-                        <Box className={classes.accountName}>
+                        <Box onClick={(e) => moveToTransactions(e, account.id)} className={classes.accountName}>
                             {renderAccountIcon()}
                             <Typography className={classes.accountName} variant="h5" component="a">
                                 {account.name}

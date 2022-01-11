@@ -6,6 +6,7 @@ import { useBankAPI } from '../contexts/BankAPI'
 import AccountMiniList from './AccountMiniList'
 import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Transaction from './Transaction';
+import Paginator from './Paginator';
 
 const useStyles = makeStyles((theme) => ({
     acctlist: {
@@ -14,17 +15,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TransactionPage() {
+
     const { id } = useParams()
     const classes = useStyles();
 
     const theme = useTheme();
     const useSmallFormat = useMediaQuery(theme.breakpoints.down("md"));
-    console.log("Small format: " + useSmallFormat)
 
     const [currentAccountID, setCurrentAccountID] = useState(0)
 
-
-    const [transactions, setTransactions] = useState([])
+    const [transactions, setTransactions] = useState({header:null, transactions: []})
 
     const { getAccounts, getTransactions } = useBankAPI()
 
@@ -33,7 +33,10 @@ export default function TransactionPage() {
             .then(val => setTransactions(val))
     }
 
-
+    const goToPage = (pageNumber, numPerPage) => {
+        getTransactions(currentAccountID, pageNumber, numPerPage)
+            .then(val => setTransactions(val))
+    }
     useEffect(() => {
         loadTransactions()
     }, [currentAccountID])
@@ -64,6 +67,7 @@ export default function TransactionPage() {
                 <AccountMiniList accounts={accounts} currentID={id} />
             </div>
             <Typography variant="h5">Transactions for {nickname}</Typography>
+            <Paginator pageinfo={transactions.header} goToPage={goToPage}/>
             <Table size="small" >
                 <TableHead>
                     {useSmallFormat ? (
@@ -84,11 +88,12 @@ export default function TransactionPage() {
                     )}
                 </TableHead>
                 <TableBody>
-                    {transactions.map((transaction) => {
+                    {transactions.transactions.map((transaction) => {
                         return <Transaction transaction={transaction} useSmallFormat={useSmallFormat} />
                     })}
                 </TableBody>
             </Table>
+            <Paginator pageinfo={transactions.header} goToPage={goToPage} />
         </>
     )
 }

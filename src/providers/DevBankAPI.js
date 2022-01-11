@@ -55,6 +55,12 @@ const visaTransactions = [
   { id: 33838, date: "01/01/22", description: "Best Buy", amount: -12.18, balance: -12.18 }
 ]
 
+function normalizePageNumber(length, pageNumber, numPerPage) {
+  let maxPage = Math.max(1, Math.ceil(length / numPerPage))
+  let result = Math.min(maxPage, pageNumber)
+  return result;
+}
+
 export default function api() {
   return {
     currentUser: {
@@ -87,18 +93,44 @@ export default function api() {
         )
       })
     },
-    getTransactions: function (accountID) {
+    getTransactions: function (accountID, pageNumber = 1, numPerPage = 5) {
+      pageNumber = normalizePageNumber(checkingTransactions.length, pageNumber, numPerPage)
+      let totalPages = Math.ceil(checkingTransactions.length / numPerPage)
+      let startIndex = (pageNumber - 1) * numPerPage
+      let endIndex = startIndex + numPerPage
+
       if (accountID === "3571") {
         return new Promise((resolve, reject) => {
-          resolve(checkingTransactions)
+          resolve({
+            header: {
+              pageNumber,
+              numPerPage,
+              totalPages
+            },
+            transactions: checkingTransactions.slice(startIndex, endIndex)
+          })
         })
       } else if (accountID === "5739") {
         return new Promise((resolve, reject) => {
-          resolve(savingsTransactions)
+          resolve({
+            header: {
+              pageNumber,
+              numPerPage,
+              totalPages: Math.ceil(savingsTransactions.length / numPerPage)
+            },
+            transactions: savingsTransactions.slice(startIndex, endIndex)
+          })
         })
       } else if (accountID === "4810") {
         return new Promise((resolve, reject) => {
-          resolve(visaTransactions)
+          resolve({
+            header: {
+              pageNumber,
+              numPerPage,
+              totalPages: Math.ceil(visaTransactions.length / numPerPage)
+            },
+            transactions: visaTransactions.slice(startIndex, endIndex)
+          })
         })
       } else {
         return new Promise((resolve, reject) => {

@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "14pt",
         color: "#555"
     },
+    negbalance: {
+        fontSize: "14pt",
+        color: "#B22222"
+    },
     acctid: {
         color: "#AAA",
         marginBottom: "0.5em"
@@ -48,8 +52,8 @@ export default function AccountMiniList({ accounts, currentID }) {
                             <Typography className={classes.acctid}>
                                 {"(" + account.accountNumber + ")"}
                             </Typography>
-                            <Typography className={classes.balance}>
-                                {"$" + account.balance.toLocaleString("en-CA", {minimumFractionDigits: 2})}
+                            <Typography className={account.balance < 0 ? classes.negbalance : classes.balance}>
+                                { (account.balance < 0 ? "-$" : "$") + Math.abs(account.balance).toLocaleString("en-CA", {minimumFractionDigits: 2})}
                             </Typography>
                             <Typography>{account.name === "Visa" ? "\u00A0" : "Available" }</Typography>
                         </Paper>
