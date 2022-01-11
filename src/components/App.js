@@ -21,7 +21,7 @@ export default function App() {
       <BankAPI>
         <BrowserRouter>
           <Header bankName="Neptune Bank" />
-          <Container maxWidth="lg" style={{marginTop: "2em"}}>
+          <Container maxWidth="lg" style={{ marginTop: "2em" }}>
             <Routes>
               <Route exact path="/" element={
                 <RequireAuth>

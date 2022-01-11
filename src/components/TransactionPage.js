@@ -4,13 +4,16 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useParams } from 'react-router-dom'
 import { useBankAPI } from '../contexts/BankAPI'
 import AccountMiniList from './AccountMiniList'
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
 import Transaction from './Transaction';
 import Paginator from './Paginator';
 
 const useStyles = makeStyles((theme) => ({
     acctlist: {
         paddingBottom: "1.5em"
+    },
+    tinycell: {
+        fontSize: "0.7em"
     }
 }));
 
@@ -24,7 +27,7 @@ export default function TransactionPage() {
 
     const [currentAccountID, setCurrentAccountID] = useState(0)
 
-    const [transactions, setTransactions] = useState({header:null, transactions: []})
+    const [transactions, setTransactions] = useState({ header: null, transactions: [] })
 
     const { getAccounts, getTransactions } = useBankAPI()
 
@@ -67,32 +70,34 @@ export default function TransactionPage() {
                 <AccountMiniList accounts={accounts} currentID={id} />
             </div>
             <Typography variant="h5">Transactions for {nickname}</Typography>
-            <Paginator pageinfo={transactions.header} goToPage={goToPage}/>
-            <Table size="small" >
-                <TableHead>
-                    {useSmallFormat ? (
-                        <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell align="right">Amount</TableCell>
-                            <TableCell align="right">Balance</TableCell>
-                        </TableRow>
-                    ) : (
-                        <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell align="right">Withdrawal</TableCell>
-                            <TableCell align="right">Deposit</TableCell>
-                            <TableCell align="right">Balance</TableCell>
-                        </TableRow>
-                    )}
-                </TableHead>
-                <TableBody>
-                    {transactions.transactions.map((transaction) => {
-                        return <Transaction transaction={transaction} useSmallFormat={useSmallFormat} />
-                    })}
-                </TableBody>
-            </Table>
+            <Paginator pageinfo={transactions.header} goToPage={goToPage} />
+            <Grid container>
+                <Table size="small" >
+                    <TableHead>
+                        {useSmallFormat ? (
+                            <TableRow>
+                                <TableCell className={classes.tinycell}>Date</TableCell>
+                                <TableCell className={classes.tinycell}>Description</TableCell>
+                                <TableCell className={classes.tinycell} align="right">Amount</TableCell>
+                                <TableCell className={classes.tinycell} align="right">Balance</TableCell>
+                            </TableRow>
+                        ) : (
+                            <TableRow>
+                                <TableCell>Date</TableCell>
+                                <TableCell>Description</TableCell>
+                                <TableCell align="right">Withdrawal</TableCell>
+                                <TableCell align="right">Deposit</TableCell>
+                                <TableCell align="right">Balance</TableCell>
+                            </TableRow>
+                        )}
+                    </TableHead>
+                    <TableBody>
+                        {transactions.transactions.map((transaction) => {
+                            return <Transaction transaction={transaction} useSmallFormat={useSmallFormat} />
+                        })}
+                    </TableBody>
+                </Table>
+            </Grid>
             <Paginator pageinfo={transactions.header} goToPage={goToPage} />
         </>
     )

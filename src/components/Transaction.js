@@ -9,8 +9,11 @@ const useStyles = makeStyles((theme) => ({
       },
       '&:nth-of-type(even)': {
         backgroundColor: "#DDD",
-      },
+      }
     },
+    tinycell: {
+        fontSize: "0.6em"
+    }
 }))
 
 export default function Transaction({ transaction, useSmallFormat }) {
@@ -32,10 +35,10 @@ export default function Transaction({ transaction, useSmallFormat }) {
         <>
         {useSmallFormat ? (
         <TableRow className={classes.row} key={transaction.id}>
-            <TableCell>{transaction.date}</TableCell>
-            <TableCell>{transaction.description}</TableCell>
-            <TableCell align="right">{formatAmount(transaction.amount)}</TableCell>
-            <TableCell align="right">{formatAmount(transaction.balance)}</TableCell>
+            <TableCell className={classes.tinycell}>{transaction.date}</TableCell>
+            <TableCell className={classes.tinycell}>{transaction.description}</TableCell>
+            <TableCell className={classes.tinycell} align="right">{formatAmount(transaction.amount)}</TableCell>
+            <TableCell className={classes.tinycell} align="right">{formatAmount(transaction.balance)}</TableCell>
         </TableRow>
         ) : (
             <TableRow className={classes.row} key={transaction.id}>

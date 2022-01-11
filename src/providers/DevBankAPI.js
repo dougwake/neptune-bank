@@ -72,19 +72,21 @@ export default function api() {
       return new Promise((resolve, reject) => {
         resolve([
           {
-            id: "3571",
+            id: "67382919383571",
             name: "Checking",
             balance: checkingTransactions[0].balance,
+            routingNumber: "7 77 777777",
             accountNumber: "...3571"
           },
           {
-            id: "5739",
+            id: "6883939565739",
             name: "Savings",
             balance: savingsTransactions[0].balance,
+            routingNumber: "7 77 777777",
             accountNumber: "...5739"
           },
           {
-            id: "4810",
+            id: "4000-0000-0000-4810",
             name: "Visa",
             balance: visaTransactions[0].balance,
             accountNumber: "...4810"
@@ -99,7 +101,7 @@ export default function api() {
       let startIndex = (pageNumber - 1) * numPerPage
       let endIndex = startIndex + numPerPage
 
-      if (accountID === "3571") {
+      if (accountID === "67382919383571") {
         return new Promise((resolve, reject) => {
           resolve({
             header: {
@@ -110,7 +112,7 @@ export default function api() {
             transactions: checkingTransactions.slice(startIndex, endIndex)
           })
         })
-      } else if (accountID === "5739") {
+      } else if (accountID === "6883939565739") {
         return new Promise((resolve, reject) => {
           resolve({
             header: {
@@ -121,7 +123,7 @@ export default function api() {
             transactions: savingsTransactions.slice(startIndex, endIndex)
           })
         })
-      } else if (accountID === "4810") {
+      } else if (accountID === "4000-0000-0000-4810") {
         return new Promise((resolve, reject) => {
           resolve({
             header: {

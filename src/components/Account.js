@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Card, CardActions, CardContent, Link, TableCell, Tooltip, Typography } from '@material-ui/core';
+import { Box, Button, Card, CardActions, CardContent, Link, Modal, TableCell, Tooltip, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import EventNoteOutlinedIcon from '@material-ui/icons/EventNoteOutlined';
-
+import AccountDetails from './AccountDetails'
 
 
 export default function Account({ account }) {
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    function openAccountDetails() {
+        setIsModalOpen(true)
+    }
+
+    function closeAccountDetails() {
+        setIsModalOpen(false)
+    }
+
     const useStyles = makeStyles((theme) => ({
         root: {
             marginBottom: "1em",
@@ -59,15 +70,15 @@ export default function Account({ account }) {
     function moveToTransactions(e, id) {
         e.preventDefault();
         navigate(`/transactions/${id}`, { replace: true });
-      }
-    
+    }
+
 
     return (
         <TableCell className={classes.tableCell}>
             <Card className={classes.root}>
                 <CardContent>
                     <Typography variant="h5" className={account.balance < 0 ? classes.negbalance : classes.balance}>
-                        { (account.balance < 0 ? "-$" : "$") + Math.abs(account.balance).toLocaleString("en-CA", {minimumFractionDigits: 2})}
+                        {(account.balance < 0 ? "-$" : "$") + Math.abs(account.balance).toLocaleString("en-CA", { minimumFractionDigits: 2 })}
                     </Typography>
                     <Tooltip title="View Transactions" placement="bottom-start">
                         <Box onClick={(e) => moveToTransactions(e, account.id)} className={classes.accountName}>
@@ -85,9 +96,17 @@ export default function Account({ account }) {
                     <Button onClick={(e) => moveToTransactions(e, account.id)} variant="contained" color="primary" size="small">
                         View Transactions
                     </Button>
-                    <Button variant="contained" color="primary" size="small">
+                    <Button onClick={openAccountDetails} variant="contained" color="primary" size="small">
                         Account Details
                     </Button>
+                    <Modal
+                        open={isModalOpen}
+                        onClose={closeAccountDetails}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                    >
+                        <AccountDetails account={account} />
+                    </Modal>
                 </CardActions>
             </Card>
         </TableCell>

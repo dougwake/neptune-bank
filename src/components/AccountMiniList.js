@@ -1,4 +1,4 @@
-import { Card, Grid, Paper, Typography } from '@material-ui/core'
+import { Grid, Paper, Typography } from '@material-ui/core'
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
