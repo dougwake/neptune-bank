@@ -13,7 +13,7 @@ import TransactionPage from './TransactionPage'
 
 export default function App() {
 
-  const currentURL = window.location.href;
+  // const currentURL = window.location.href;
   // console.log(currentURL)
 
   return (

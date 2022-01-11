@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Card, CardActions, CardContent, Link, makeStyles, Modal, TableCell, Tooltip, Typography } from '@material-ui/core';
 import BillPayList from './BillPayList';
+import BillPayDialog from './BillPayDialog'
 import { useBankAPI } from '../contexts/BankAPI';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +19,7 @@ export default function BillPayPage() {
 
     const [pending, setPending] = useState([])
     const [history, setHistory] = useState()
+    const [open, setOpen] = useState(false)
 
     const { getBillPayHistory } = useBankAPI()
 
@@ -27,23 +29,34 @@ export default function BillPayPage() {
     }, [])
 
     useEffect(() => {
-        if (pending && pending.length > 1) {
+        if (pending && pending.length > 0) {
             localStorage.setItem(process.env.REACT_APP_LOCAL_STORAGE_KEY, JSON.stringify(pending))
         }
     }, [pending])
 
 
 
-    const addPayment = function () {
-        let newid = 1
-        if (pending && pending.length > 0) {
-            newid = Math.max.apply(Math, pending.map(o => o.id)) + 1
+    const addPayment = function (bill) {
+        // stub for testing only
+        if (bill) {
+
+            let newid = 1
+            if (pending && pending.length > 0) {
+                newid = Math.max.apply(Math, pending.map(o => o.id)) + 1
+            }
+            bill.id = newid
+            const updated = [
+                bill,
+                ...pending
+            ]
+
+            setPending(updated)
         }
-        const updated = [
-            { id: newid, payee: "New Bill", fromAccount: "Checking", amount: 99.99, arrivalDate: new Date("12/18/2021") },
-            ...pending
-        ]
-        setPending(updated)
+        setOpen(false)
+    }
+
+    function openDialog() {
+        setOpen(true)
     }
 
     const classes = useStyles();
@@ -60,7 +73,8 @@ export default function BillPayPage() {
 
     return (
         <>
-            <Button onClick={addPayment} variant="contained" color="primary" size="large">Pay a bill</Button>
+            <BillPayDialog open={open} addPending={addPayment} />
+            <Button onClick={openDialog} variant="contained" color="primary" size="large">Pay a bill</Button>
 
             <Typography className={classes.title} variant="h5">Pending</Typography>
             {pending && pending.length > 0 ? (

@@ -93,7 +93,7 @@ export default function TransactionPage() {
                     </TableHead>
                     <TableBody>
                         {transactions.transactions.map((transaction) => {
-                            return <Transaction transaction={transaction} useSmallFormat={useSmallFormat} />
+                            return <Transaction key={transaction.id} transaction={transaction} useSmallFormat={useSmallFormat} />
                         })}
                     </TableBody>
                 </Table>

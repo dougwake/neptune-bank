@@ -28,7 +28,7 @@ export default function BillPayRow({ bill, useSmallFormat }) {
             <TableCell>{bill.payee}</TableCell>
             <TableCell>{bill.fromAccount}</TableCell>
             <TableCell align="right">{"$" + bill.amount.toLocaleString("en-CA", { minimumFractionDigits: 2 })}</TableCell>
-            <TableCell align="right">{"date"}</TableCell>
+            <TableCell align="right">{formatShortDate(bill.arrivalDate)}</TableCell>
         </TableRow>
     )
 }

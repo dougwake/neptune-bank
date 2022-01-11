@@ -100,7 +100,7 @@ export default function Header({ bankName }) {
           {isMobile ? (
             <SidebarMenu />
           ) : (
-            <div>
+            <Box>
               <Button onClick={moveToBillPay} className={classes.button} color="inherit">Pay Bills</Button>
               <Button onClick={handleLogout} className={classes.button} color="inherit">Sign Off</Button>
               <Chip
@@ -108,7 +108,7 @@ export default function Header({ bankName }) {
                 icon={<FaceIcon />}
                 label={currentUser.name}
               />
-              </div>)}
+              </Box>)}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography, makeStyles } from '@material-ui/core'
+import { Grid, Paper, Typography, makeStyles, Box } from '@material-ui/core'
 import React from 'react'
 
 
@@ -55,14 +55,14 @@ export default function AccountDetails({ account }) {
                     {account.id}
                 </Typography>
                 {account.routingNumber ? (
-                    <div>
+                    <Box>
                         <Typography>Routing Number:</Typography>
                         <Typography className={classes.acctid}>
                             {account.routingNumber}
                         </Typography>
-                    </div>
+                    </Box>
                 ) : (
-                    <div></div>
+                    <Box></Box>
                 )}
                 <Typography className={account.balance < 0 ? classes.negbalance : classes.balance}>
                     {(account.balance < 0 ? "-$" : "$") + Math.abs(account.balance).toLocaleString("en-CA", { minimumFractionDigits: 2 })}
