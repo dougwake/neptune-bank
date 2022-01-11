@@ -34,7 +34,7 @@ export default function BillPayList({ bills }) {
                 </TableHead>
                 <TableBody>
                     {bills.map((bill) => {
-                        return <BillPayRow bill={bill} useSmallFormat={useSmallFormat} />
+                        return <BillPayRow key={bill.id} bill={bill} useSmallFormat={useSmallFormat} />
                     })}
                 </TableBody>
             </Table>

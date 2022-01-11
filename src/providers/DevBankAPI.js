@@ -68,11 +68,6 @@ function normalizePageNumber(length, pageNumber, numPerPage) {
 }
 
 export default function api() {
-  let pendingBills = [
-
-    // { payee: "Electric", fromAccount: "Checking", amount: 85.27, arrivalDate: new Date("12/18/2021") }
-
-  ]
 
   return {
     currentUser: {
@@ -159,29 +154,23 @@ export default function api() {
       return new Promise((resolve, reject) => {
         resolve([
 
-          { payee: "Electric", fromAccount: "Checking", amount: 85.27, arrivalDate: new Date("12/18/2021") },
-          { payee: "Cable", fromAccount: "Checking", amount: 55.88, arrivalDate: new Date("12/11/2021") },
-          { payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("12/1/2021") },
+          { id: 999, payee: "Electric", fromAccount: "Checking", amount: 85.27, arrivalDate: new Date("12/18/2021") },
+          { id: 998, payee: "Cable", fromAccount: "Checking", amount: 55.88, arrivalDate: new Date("12/11/2021") },
+          { id: 997, payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("12/1/2021") },
           
-          { payee: "Electric", fromAccount: "Checking", amount: 90.13, arrivalDate: new Date("11/18/2021") },
-          { payee: "Cable", fromAccount: "Checking", amount: 56.05, arrivalDate: new Date("11/10/2021") },
-          { payee: "Subscription", fromAccount: "Checking", amount: 49.72, arrivalDate: new Date("11/10/2021") },
-          { payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("11/1/2021") },
+          { id: 996, payee: "Electric", fromAccount: "Checking", amount: 90.13, arrivalDate: new Date("11/18/2021") },
+          { id: 995, payee: "Cable", fromAccount: "Checking", amount: 56.05, arrivalDate: new Date("11/10/2021") },
+          { id: 994, payee: "Subscription", fromAccount: "Checking", amount: 49.72, arrivalDate: new Date("11/10/2021") },
+          { id: 993, payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("11/1/2021") },
           
-          { payee: "Electric", fromAccount: "Checking", amount: 76.29, arrivalDate: new Date("10/20/2021") },
-          { payee: "Cable", fromAccount: "Checking", amount: 55.32, arrivalDate: new Date("10/12/2021") },
-          { payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("10/1/2021") },
+          { id: 992, payee: "Electric", fromAccount: "Checking", amount: 76.29, arrivalDate: new Date("10/20/2021") },
+          { id: 991, payee: "Cable", fromAccount: "Checking", amount: 55.32, arrivalDate: new Date("10/12/2021") },
+          { id: 990, payee: "Rent", fromAccount: "Savings", amount: 1285, arrivalDate: new Date("10/1/2021") },
           
 
         ])
       })
-    },
-
-    getBillPayPending: function (userID) {
-      return new Promise((resolve, reject) => {
-        resolve(pendingBills)
-      })
-    },
+    }
 
 
   }

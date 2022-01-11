@@ -17,16 +17,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+// formatShortDate(bill.arrivalDate)
+
 export default function BillPayRow({ bill, useSmallFormat }) {
 
     const classes = useStyles()
 
     return (
-        <TableRow className={classes.row}>
+        <TableRow key={bill.id} className={classes.row}>
             <TableCell>{bill.payee}</TableCell>
             <TableCell>{bill.fromAccount}</TableCell>
             <TableCell align="right">{"$" + bill.amount.toLocaleString("en-CA", { minimumFractionDigits: 2 })}</TableCell>
-            <TableCell align="right">{formatShortDate(bill.arrivalDate)}</TableCell>
+            <TableCell align="right">{"date"}</TableCell>
         </TableRow>
     )
 }

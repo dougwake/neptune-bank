@@ -16,39 +16,51 @@ const useStyles = makeStyles((theme) => ({
 export default function BillPayPage() {
 
 
-    const [pending, setPending] = useState()
+    const [pending, setPending] = useState([])
     const [history, setHistory] = useState()
 
-    const { getBillPayPending, getBillPayHistory } = useBankAPI()
+    const { getBillPayHistory } = useBankAPI()
 
+    useEffect(() => {
+        let o = localStorage.getItem(process.env.REACT_APP_LOCAL_STORAGE_KEY)
+        if (o) setPending(JSON.parse(o))
+    }, [])
+
+    useEffect(() => {
+        if (pending && pending.length > 1) {
+            localStorage.setItem(process.env.REACT_APP_LOCAL_STORAGE_KEY, JSON.stringify(pending))
+        }
+    }, [pending])
+
+
+
+    const addPayment = function () {
+        let newid = 1
+        if (pending && pending.length > 0) {
+            newid = Math.max.apply(Math, pending.map(o => o.id)) + 1
+        }
+        const updated = [
+            { id: newid, payee: "New Bill", fromAccount: "Checking", amount: 99.99, arrivalDate: new Date("12/18/2021") },
+            ...pending
+        ]
+        setPending(updated)
+    }
 
     const classes = useStyles();
 
-    const loadPending = () => {
-        getBillPayPending()
-            .then(val => setPending(val))
-    }
     const loadHistory = () => {
         getBillPayHistory()
             .then(val => setHistory(val))
     }
 
     useEffect(() => {
-        loadPending()
-    }, [pending])
-
-    useEffect(() => {
         loadHistory()
     }, [])
-
-    // if (id !== currentAccountID) {
-    //     setCurrentAccountID(id)
-    // }
 
 
     return (
         <>
-            <Button variant="contained" color="primary" size="large">Pay a bill</Button>
+            <Button onClick={addPayment} variant="contained" color="primary" size="large">Pay a bill</Button>
 
             <Typography className={classes.title} variant="h5">Pending</Typography>
             {pending && pending.length > 0 ? (
@@ -57,7 +69,7 @@ export default function BillPayPage() {
                 </>
             ) : (
                 <>
-                <Typography className={classes.msg}>None</Typography>
+                    <Typography className={classes.msg}>None</Typography>
                 </>
             )}
 
