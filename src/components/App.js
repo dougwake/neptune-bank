@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './Home'
-import BillPay from './BillPay'
+import BillPayPage from './BillPayPage'
 import Login from './Login'
 import PageNotFound from './PageNotFound'
 import { AuthProvider } from '../contexts/AuthContext'
@@ -35,7 +35,7 @@ export default function App() {
               } />
               <Route path="/billpay" element={
                 <RequireAuth>
-                  <BillPay />
+                  <BillPayPage />
                 </RequireAuth>
               } />
               <Route path="/login" element={<Login />} />

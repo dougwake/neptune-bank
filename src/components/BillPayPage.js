@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function BillPay() {
+export default function BillPayPage() {
     return (
         <h1>BillPay</h1>
     )
