@@ -25,10 +25,10 @@ export default function BillPayRow({ bill, useSmallFormat }) {
 
     return (
         <TableRow key={bill.id} className={classes.row}>
-            <TableCell>{bill.payee}</TableCell>
-            <TableCell>{bill.fromAccount}</TableCell>
-            <TableCell align="right">{"$" + bill.amount.toLocaleString("en-CA", { minimumFractionDigits: 2 })}</TableCell>
-            <TableCell align="right">{formatShortDate(bill.arrivalDate)}</TableCell>
+            <TableCell className={useSmallFormat ? classes.tinycell : ""}>{bill.payee}</TableCell>
+            <TableCell className={useSmallFormat ? classes.tinycell : ""}>{bill.fromAccount}</TableCell>
+            <TableCell className={useSmallFormat ? classes.tinycell : ""} align="right">{"$" + bill.amount.toLocaleString("en-CA", { minimumFractionDigits: 2 })}</TableCell>
+            <TableCell className={useSmallFormat ? classes.tinycell : ""} align="right">{formatShortDate(bill.arrivalDate)}</TableCell>
         </TableRow>
     )
 }

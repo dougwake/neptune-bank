@@ -6,7 +6,8 @@ import BillPayRow from './BillPayRow';
 
 const useStyles = makeStyles((theme) => ({
     acctlist: {
-        paddingBottom: "1.5em"
+        paddingBottom: "1.5em",
+        width: "95%"
     },
     tinycell: {
         fontSize: "0.7em"
