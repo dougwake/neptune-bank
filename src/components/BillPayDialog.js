@@ -1,5 +1,5 @@
 import 'date-fns';
-import { Button, Dialog, DialogTitle, FormControl, FormHelperText, Grid, InputLabel, ListItem, MenuItem, Select, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogTitle, FormControl, Grid, InputLabel, ListItem, MenuItem, Select, TextField } from '@material-ui/core'
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
@@ -87,7 +87,7 @@ export default function BillPayDialog({ open, addPending }) {
     }
 
     function onAmountChange(e) {
-        if (isNaN(e.target.value) || e.target.value < 0.01) {
+        if (isNaN(e.target.value)) {
             console.log("bad: " + e.target.value)
             e.preventDefault()
         } else {
