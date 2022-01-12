@@ -1,9 +1,10 @@
-import { Button, Card, Container, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, Container, ListItem, Paper, TextField, Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import React, { Fragment, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../contexts/AuthContext'
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 export default function Login() {
 
@@ -85,6 +86,20 @@ export default function Login() {
             '&:hover': {
                 backgroundColor: theme.palette.primary.main
             }
+        },
+        info: {
+            textAlign: "center",
+            width: "100%",
+            backgroundColor: "lightblue",
+            paddingBottom: "1em",
+            paddingTop: "1em"
+        },
+        infoicon: {
+            // float: "left",
+            // paddingLeft: "1em",
+            verticalAlign: "middle",
+            fontSize: "32pt",
+            color: "darkblue"
         }
     }));
 
@@ -100,6 +115,12 @@ export default function Login() {
                         <TextField onKeyUp={onPasswordKeyUp} onChange={checkState} inputRef={refPassword} className={classes.textbox} type="password" id="password" label="Password" variant="outlined" />
                         {error && <Alert severity="error">{error}</Alert>}
                         <Button onClick={handleSubmit} disabled={!ready || loading} className={classes.button} variant="contained">Log In</Button>
+                        <Box align="center" className={classes.info}>
+                            
+                            <Typography variant="h5"><InfoOutlinedIcon className={classes.infoicon} /> Demo account:</Typography>
+                            <Box sx={{ fontFamily: 'Monospace', fontSize: '14pt', m: 1 }}>bob@example.com</Box>
+                            <Box sx={{ fontFamily: 'Monospace', fontSize: '14pt', m: 1 }}>password123</Box>
+                        </Box>
                     </>}
                     {authUser &&
                         <>
